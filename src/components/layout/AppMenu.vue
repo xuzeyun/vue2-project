@@ -65,6 +65,7 @@ export default {
   font-weight: bold;
   background: #303e47;
   color: #7a7f56;
+  text-align: center;
   img, span{
     display: inline;
     vertical-align: middle;
@@ -72,7 +73,6 @@ export default {
 }
 .el-menu-vertical-demo{
   width: 270px;
-  text-align: left;
   height: calc(100vh - 50px);
   overflow: auto;
   /deep/ .el-submenu__title{

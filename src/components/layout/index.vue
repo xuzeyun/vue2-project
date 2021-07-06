@@ -26,6 +26,7 @@ export default {
   width: 100%;
   height: 100vh;
   display: flex;
+  text-align: left;
   .app-menu{
     width: 270px;
     height: 100vh;

@@ -2,14 +2,73 @@
 @import '../assets/icon/fontawesome-free-5.11.2-web/css/brands.min.css';
 @import '../assets/icon/fontawesome-free-5.11.2-web/css/solid.min.css';
 
+// 按钮中 icon 添加右边距
+.el-button{
+  .fas{
+    margin-right: 3px;
+  }
+}
+.el-button+.el-button {
+  margin-left: 5px !important;
+}
+// 减少 mini 按钮两侧 padding 值
+.el-button--mini, .el-button--mini.is-round{
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+}
+// primary 按钮样式
 .el-button--primary {
+  color: #FFF;
+  background-color: #64675c !important;
+  border-color: #64675c !important;
+}
+// info 按钮样式
+.el-button--info {
   color: #FFF;
   background-color: #999481 !important;
   border-color: #999481 !important;
 }
 
+// danger 按钮样式
 .el-button--danger {
   color: #FFF;
   background-color: #d05823 !important;
   border-color: #d05823 !important;
+}
+
+// 大模块标题
+.title-bar{
+  height: 38px;
+  line-height: 38px;
+  background: #f2f1ef;
+  margin-bottom: 10px;
+  .title-bar-text{
+    padding-left: 10px;
+    font-size: 18px;
+    i{
+      margin-right: 10px;
+      color: #999481;
+    }
+  }
+  .title-bar-tool{
+    text-align: right;
+    padding-right: 10px;
+  }
+}
+
+// 表格
+.el-table td, .el-table th{
+  padding: 2px 0px !important;
+}
+.el-table th{
+  padding: 5px 0px !important;
+  background-color: #f5f5f5 !important;
+}
+
+.el-form-item{
+  margin-bottom: 10px !important;
+}
+
+.row-bottom-10{
+  margin-bottom: 10px;
 }
