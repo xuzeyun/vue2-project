@@ -2,51 +2,56 @@
   <div>
     <div class="logo-title"><img src="../../assets/logo2.png" width="23" height="23" alt=""><span> 项目管理名称</span></div>
     <el-menu
-      default-active="2"
+      :default-active="curPath"
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose"
+      @select="handleSelect"
+      unique-opened
       background-color="#303e47"
       text-color="#576069"
       active-text-color="#7a7f56">
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>导航一</span>
-        </template>
-        <el-menu-item-group>
-          <template slot="title">分组一</template>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
+      <template v-for="(item, index) in appMenu">
+        <el-submenu :index="(index+1)+''" :key="item.name">
+          <template slot="title">
+            <i :class="'fas fa-' + item.icon"></i>
+            <span>{{ item.name }}</span>
+          </template>
+          <template v-for="(menu, menuIndex) in item.menus">
+            <el-menu-item :index="menu.url" :key="menuIndex">{{ menu.name }}</el-menu-item>
+          </template>
         </el-submenu>
-      </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航四</span>
-      </el-menu-item>
+      </template>
     </el-menu>
   </div>
 </template>
 
 <script>
+import MENU from '../../utils/menu'
 export default {
   name: 'appMenu',
+  data(){
+    return {
+      appMenu: MENU,
+      curPath: '',
+    }
+  },
+  watch: {
+    '$route': 'getPath'
+  },
+  mounted(){
+    this.getPath();
+  },
   methods: {
+    getPath(){
+      this.curPath = this.$route.path;
+      console.log(this.$route.path, 'this.$route.path')
+    },
+
+    handleSelect(index){
+      this.$router.push(index);
+    },
+
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -82,6 +87,9 @@ export default {
   .el-menu-item{
     height: 38px;
     line-height: 38px;
+  }
+  .fas{
+    margin-right: 10px;
   }
 }
 </style>

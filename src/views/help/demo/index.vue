@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Container :cont="{leftWidth: '300px'}">
+    <Container :cont="contConfig">
       <!-- aside -->
       <div slot="aside">
         <!-- 标题 -->
@@ -9,7 +9,7 @@
           <el-col :span="12" class="title-bar-tool"><el-button type="primary" size="mini"><i class="fas fa-folder-plus"></i>新增</el-button></el-col>
         </el-row>
         <!-- 内容 -->
-        <el-row class="row-bottom-10">
+        <el-row class="g-bottom-10">
           <el-input
             size="mini"
             placeholder="输入关键字进行过滤"
@@ -52,14 +52,15 @@
             <el-form-item>
               <el-button type="primary" @click="onSubmit"><i class="fas fa-search"></i>查询</el-button>
               <el-button type="info"><i class="fas fa-undo"></i>重置</el-button>
+              <el-button type="danger"><i class="fas fa-trash"></i>批量删除</el-button>
             </el-form-item>
           </el-form>
         </el-row>
-        <el-row class="row-bottom-10">
+        <el-row class="g-bottom-10">
           <el-table
             :data="tableData"
             border
-            height="calc(100vh - 180px)"
+            height="calc(100vh - 170px)"
             style="">
             <el-table-column
               fixed
@@ -103,10 +104,11 @@
               align="center"
               label="操作"
               width="200">
-              <template slot-scope="scope">
-                <el-button type="text" size="mini"><i class="fas fa-book-open"></i>查看</el-button>
-                <el-button type="text" size="mini"><i class="fas fa-edit"></i>编辑</el-button>
-                <el-button type="text" size="mini"><i class="fas fa-trash"></i>删除</el-button>
+              <!-- slot-scope="scope" -->
+              <template>
+                <el-button class="g-text-btn-primary" type="text" size="mini"><i class="fas fa-book-open"></i>查看</el-button>
+                <el-button class="g-text-btn-primary" type="text" size="mini"><i class="fas fa-edit"></i>编辑</el-button>
+                <el-button class="g-text-btn-danger" type="text" size="mini"><i class="fas fa-trash"></i>删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -133,12 +135,16 @@
 <script>
 import Container from '../../../components/container/index.vue'
 export default {
-  name: 'help',
+  name: 'demo',
   components: {
     Container
   },
   data() {
     return {
+      contConfig: {
+        aside: true,
+        leftWidth: '300px',
+      },
       formInline: {
         user: '',
         region: ''

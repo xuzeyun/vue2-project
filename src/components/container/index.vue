@@ -1,11 +1,11 @@
 <template>
   <el-container>
     <!-- <el-header>Header</el-header> -->
-    <el-aside v-show="isCollapse" :width="cont.leftWidth">
+    <el-aside v-if="cont.aside" v-show="isCollapse" :width="cont.leftWidth">
       <slot name="aside"></slot>
     </el-aside>
     <el-main>
-      <div class="collapse-btn" @click="collapse">
+      <div class="collapse-btn" @click="collapse" v-if="cont.aside">
         <i v-if="isCollapse" class="fas fa-chevron-left"></i>
         <i v-else class="fas fa-chevron-right"></i>
       </div>
@@ -41,6 +41,7 @@ export default {
     height: calc(100vh - 30px);
     overflow: auto;
     padding: 6px;
+    padding-top: 0;
     padding-bottom: 0;
     background: #fff;
     // border: #ddd 1px solid;
