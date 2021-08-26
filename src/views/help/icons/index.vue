@@ -14,6 +14,7 @@
             <dl :key="item.flag"><dt><i :class="'fas fa-' + item.flag"></i></dt><dd>{{ item.name }}</dd><dd>{{ iconHtml(item.flag) }}</dd></dl>
           </template>
         </div>
+        <div>更多：<a href="https://fa5.dashgame.com" target="_blank" rel="noopener noreferrer">https://fa5.dashgame.com</a></div>
       </div>
     </Container>
   </div>
@@ -56,12 +57,9 @@ export default {
         { name: '确认', flag: 'calendar-check' },
         { name: '确认', flag: 'check' },
         { name: '取消', flag: 'times' },
-
-        
         { name: '驳回', flag: 'calendar-times' },
         { name: '驳回', flag: 'reply' },
         { name: '全部驳回', flag: 'reply-all' },
-        
         { name: '图表', flag: 'chart-area' },
         { name: '文件上传', flag: 'file-upload' },
         { name: '关联', flag: 'retweet' },
@@ -73,18 +71,6 @@ export default {
         { name: '最小化', flag: 'window-minimize' },
         { name: '最大化', flag: 'window-maximize' },
         { name: '恢复', flag: 'window-restore' },
-
-
-        
-
-        
-
-
-        
-
-        
-
-        
       ]
     }
   },

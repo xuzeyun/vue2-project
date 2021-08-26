@@ -6,7 +6,7 @@ export default [
     menus: [
       { name: '示例页面', url: '/help/demo', no: '1'},
       { name: '常用图标', url: '/help/icons', no: '2'},
-      { name: '性能测试', url: '/help/test', no: '3'},
+      { name: '3D地球', url: '/help/chart', no: '3'},
     ]
   },
   {

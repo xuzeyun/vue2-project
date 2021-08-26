@@ -1,3 +1,4 @@
+const path = require('path')
 module.exports = {
   publicPath: './',
   devServer: {
@@ -11,4 +12,12 @@ module.exports = {
       },
     },
   },
+  configureWebpack: {
+    resolve: {
+      // configuration options
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
+      },
+    },
+  }
 };

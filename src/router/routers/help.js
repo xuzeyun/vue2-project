@@ -9,5 +9,10 @@ export default [
     path: '/help/icons',
     name: 'icons',
     component: () => import('../../views/help/icons')
+  },
+  {
+    path: '/help/chart',
+    name: 'icons',
+    component: () => import('../../views/help/chart')
   }
 ]
