@@ -4,10 +4,10 @@
       <!-- aside -->
       <div slot="aside">
         <!-- 标题 -->
-        <el-row class="title-bar">
+        <!-- <el-row class="title-bar">
           <el-col :span="12" class="title-bar-text"><i class="fas fa-th-large"></i>项目目录树</el-col>
           <el-col :span="12" class="title-bar-tool"><el-button type="primary" size="mini"><i class="fas fa-folder-plus"></i>新增</el-button></el-col>
-        </el-row>
+        </el-row> -->
         <!-- 内容 -->
         <el-row class="g-bottom-10">
           <el-input
@@ -30,13 +30,13 @@
       <!-- main -->
       <div slot="main">
         <!-- 标题 -->
-        <el-row class="title-bar">
+        <!-- <el-row class="title-bar">
           <el-col :span="12" class="title-bar-text"><i class="fas fa-th-large"></i>主要内容区域</el-col>
           <el-col :span="12" class="title-bar-tool">
             <el-button type="primary" size="mini"><i class="fas fa-upload"></i>导入</el-button>
             <el-button type="primary" size="mini"><i class="fas fa-download"></i>导出</el-button>
           </el-col>
-        </el-row>
+        </el-row> -->
         <!-- 查询 -->
         <el-row>
           <el-form :inline="true" :model="formInline" size="mini" class="demo-form-inline">
@@ -106,9 +106,9 @@
               width="200">
               <!-- slot-scope="scope" -->
               <template>
-                <el-button class="g-text-btn-primary" type="text" size="mini"><i class="fas fa-book-open"></i>查看</el-button>
-                <el-button class="g-text-btn-primary" type="text" size="mini"><i class="fas fa-edit"></i>编辑</el-button>
-                <el-button class="g-text-btn-danger" type="text" size="mini"><i class="fas fa-trash"></i>删除</el-button>
+                <el-button class="g-text-btn-primary" type="text" size="mini"><i class="fas fa-book-open"></i></el-button>
+                <el-button class="g-text-btn-primary" type="text" size="mini"><i class="fas fa-edit"></i></el-button>
+                <el-button class="g-text-btn-danger" type="text" size="mini"><i class="fas fa-trash"></i></el-button>
               </template>
             </el-table-column>
           </el-table>

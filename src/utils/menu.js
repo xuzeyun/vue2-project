@@ -4,9 +4,9 @@ export default [
     name: '帮助',
     icon: 'book',
     menus: [
-      { name: '示例页面', url: '/help/demo', no: '1'},
-      { name: '常用图标', url: '/help/icons', no: '2'},
-      { name: '3D地球', url: '/help/chart', no: '3'},
+      { name: '示例页面', url: '/help/demo', icon: 'book', no: '1'},
+      { name: '常用图标', url: '/help/icons', icon: 'book', no: '2'},
+      { name: '3D地球', url: '/help/chart', icon: 'book', no: '3'},
     ]
   },
   {

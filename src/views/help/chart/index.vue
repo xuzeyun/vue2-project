@@ -23,7 +23,7 @@
 <script>
 import * as echarts from "echarts";
 import "echarts-gl";
-import world from "@/assets/map/js/world2.js";
+import world from "@/assets/map/js/world.js";
 
 var ROOT_PATH =
   "https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples";
@@ -35,133 +35,74 @@ var mapChart = echarts.init(canvas, null, {
 });
 
 mapChart.setOption({
-  backgroundColor: "#000b8c", // 背景色
+  backgroundColor: "#4169E1", // 背景色
   geo: {
-    // nameMap: {
-    //   China: "China", // 变成中文
-    // },
-    // regions: [
-    //   {
-    //     name: "China",
-    //     itemStyle: {
-    //       areaColor: "rgb(128, 128, 128)",
-    //     },
-    //   },
-    // ], // 区域块的颜色
-    // series: [
-    //   {
-    //     type: "map",
-    //     map: "world",
-    //     // 绘制完整尺寸的 echarts 实例
-    //     top: 0,
-    //     left: 0,
-    //     right: 0,
-    //     bottom: 0,
-    //     boundingCoords: [
-    //       [-180, 90],
-    //       [180, -90],
-    //     ],
-    //     label: {
-    //       show: true, // 是否显示文本
-    //       color: "#000", // 文本颜色
-    //     },
-
-    //     // itemStyle: {
-    //     //   normal: {
-    //     //     borderWidth: 2,
-    //     //     borderColor: "#DDD", //地球纹路的颜色
-    //     //     areaColor: {
-    //     //       type: "linear",
-    //     //       x: 0,
-    //     //       y: 0,
-    //     //       x2: 0,
-    //     //       y2: 1,
-    //     //       //相邻每个板块 从上到下的颜色变化
-    //     //       colorStops: [
-    //     //         {
-    //     //           offset: 0.2,
-    //     //           color: "#FFF", // 0% 处的颜色
-    //     //         },
-    //     //         // {
-    //     //         //   offset: 0.8,
-    //     //         //   color: "rgba(0,179,188,0.8)", // 100% 处的颜色
-    //     //         // },
-    //     //       ],
-    //     //       global: false, // 缺省为 false
-    //     //     },
-    //     //   },
-    //     // },
-    //   },
-    // ],
     z: 1,
-            type: 'map',
-            map: 'world',
-            top: 0,
-            left: 0, // 绘制完整尺寸的 echarts 实例
-            right: 0,
-            bottom: 0,
-            boundingCoords: [[-180, 90], [180, -90]], // 设置为一张完整经纬度的世界地图
-            nameMap: {
-              China: '中国', // 变成中文
+    type: "map",
+    map: "world",
+    top: 0,
+    left: 0, // 绘制完整尺寸的 echarts 实例
+    right: 0,
+    bottom: 0,
+    boundingCoords: [
+      [-180, 90],
+      [180, -90],
+    ], // 设置为一张完整经纬度的世界地图
+    nameMap: {
+      China: "", // 变成中文
+    },
+    label: {
+      show: true, // 是否显示文本
+      color: "#666", // 文本颜色
+    },
+    itemStyle: {
+      // 地图区域的多边形 图形样式。 默认样试。
+      normal: {
+        color: {
+          type: "linear",
+          x: 100,
+          y: 12,
+          x2: 12,
+          y2: 100,
+          colorStops: [
+            {
+              offset: 0,
+              color: "#f5f5f5", // 0% 处的颜色
             },
-            label: {
-              show: true, // 是否显示文本
-              color: "#000", // 文本颜色
+            {
+              offset: 1,
+              color: "#f5f5f5", // 100% 处的颜色
             },
-            itemStyle: {
-              // 地图区域的多边形 图形样式。 默认样试。
-              normal: {
-                color: {
-                  type: 'linear',
-                  x: 100,
-                  y: 12,
-                  x2: 12,
-                  y2: 100,
-                  colorStops: [
-                    {
-                      offset: 0,
-                      color: "#666", // 0% 处的颜色
-                    },
-                    {
-                      offset: 1,
-                      color: "#666", // 100% 处的颜色
-                    },
-                  ],
-                  global: false, // 缺省为 false
-                },
-                borderColor: "#ddd", // 边框线
-                borderWidth: 1, // 线宽
-                borderType: "dashed", // 支持 'solid', 'dashed', 'dotted'。
-                shadowColor: "#000",  // 阴影颜色
-                // shadowBlur: , // 模糊大小
-                // shadowOffsetX:
-                //   config.map.area.shadowOffsetX * common.getFontSize(), // 水平偏移
-                // shadowOffsetY:
-                //   config.map.area.shadowOffsetY * common.getFontSize(), // 垂直偏移
-              },
-            },
-            emphasis: {
-              // 高亮状态下的多边形和标签样式。
-              label: {
-                // 文本
-                show: true,
-                color: "#000",
-              },
-              itemStyle: {
-                // 区域
-                areaColor: "#000",
-              },
-            },
-            regions: [
-              {
-                name: '中国',
-                itemStyle: {
-                  normal: {
-                    areaColor: "#000",
-                  },
-                },
-              },
-            ], // 区域块的颜色
+          ],
+          global: false, // 缺省为 false
+        },
+        borderColor: "#ddd", // 边框线
+        borderWidth: 1, // 线宽
+        borderType: "dashed", // 支持 'solid', 'dashed', 'dotted'。
+        shadowColor: "#000", // 阴影颜色
+        // shadowBlur: 2, // 模糊大小
+        // shadowOffsetX:
+        //   config.map.area.shadowOffsetX * common.getFontSize(), // 水平偏移
+        // shadowOffsetY:
+        //   config.map.area.shadowOffsetY * common.getFontSize(), // 垂直偏移
+      },
+    },
+    emphasis: {
+      // 高亮状态下的多边形和标签样式。
+      label: {
+        // 文本
+        show: true,
+        color: "#666",
+      },
+      itemStyle: {
+        // 区域
+        areaColor: "#ddd",
+      },
+    },
+    regions: [
+      { name: "新疆", itemStyle: { normal: { areaColor: "#fff"}}},
+      { name: "西藏", itemStyle: { normal: { areaColor: "#fff"}}},
+    ], // 区域块的颜色
   },
 
   // viewControl: {
@@ -181,6 +122,9 @@ export default {
       },
       mapChart: {},
       option: {
+        tooltip: {
+          show: true,
+        },
         // backgroundColor: "#000",
         globe: {
           // 地球纹理
@@ -213,18 +157,20 @@ export default {
           // },
           viewControl: {
             autoRotate: false,
+            rotateSensitivity: 0.2,
             autoRotateSpeed: 0,
             targetCoord: [100.46, 39.92], // 定位到中国
+            // damping: 0.2
           },
         },
         series: {
           type: "lines3D",
           coordinateSystem: "globe",
-          blendMode: "lighter",
+          // blendMode: "lighter",
           lineStyle: {
             width: 3,
-            color: "rgb(50, 50, 150)",
-            opacity: 1,
+            color: "rgba(0, 0, 0, 0.8)",
+            // opacity: 1,
           },
           effect: {
             show: true,
@@ -234,7 +180,28 @@ export default {
             trailOpacity: 1,
             trailColor: "#0087f4",
           },
-          data: [],
+          data: [
+            // 成都到上海
+            {
+              coords: [[104.065735,30.659462], [121.472644,31.231706]],
+              value: '100'
+            },
+            // 成都到北京
+            {
+              coords: [[104.065735,30.659462], [116.405285,39.904989]],
+              value: '100'
+            },
+            // 成都到乌鲁木齐
+            {
+              coords: [[104.065735,30.659462], [87.617733,43.792818]],
+              value: '100'
+            },
+            // 成都到拉萨
+            {
+              coords: [[104.065735,30.659462], [91.132212,29.660361]],
+              value: '100'
+            }
+          ],
         },
       },
     };
@@ -249,11 +216,12 @@ export default {
       var myChart = echarts.init(document.getElementById("main"));
 
       //随机划多条线
-      for (let i = 0; i < 15; i++) {
-        this.option.series.data = this.option.series.data.concat(
-          this.rodamData()
-        );
-      }
+      // for (let i = 0; i < 15; i++) {
+      //   this.option.series.data = this.option.series.data.concat(
+      //     this.rodamData()
+      //   );
+      // }
+      // console.log(this.option.series.data, 'this.option.series.data ')
 
       // 绘制图表
       myChart.setOption(this.option);

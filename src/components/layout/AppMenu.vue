@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="logo-title"><img src="../../assets/logo2.png" width="23" height="23" alt=""><span> 项目管理名称</span></div>
+    <div class="logo-title">Xu Zeyun</div>
     <el-menu
       :default-active="curPath"
       class="el-menu-vertical-demo"
@@ -8,9 +8,9 @@
       @close="handleClose"
       @select="handleSelect"
       unique-opened
-      background-color="#303e47"
-      text-color="#576069"
-      active-text-color="#7a7f56">
+      background-color="#20232a"
+      text-color="#747c8d"
+      active-text-color="#fff">
       <template v-for="(item, index) in appMenu">
         <el-submenu :index="(index+1)+''" :key="item.name">
           <template slot="title">
@@ -18,7 +18,7 @@
             <span>{{ item.name }}</span>
           </template>
           <template v-for="(menu, menuIndex) in item.menus">
-            <el-menu-item :index="menu.url" :key="menuIndex">{{ menu.name }}</el-menu-item>
+            <el-menu-item :index="menu.url" :key="menuIndex"><i :class="'fas fa-' + item.icon"></i>{{ menu.name }}</el-menu-item>
           </template>
         </el-submenu>
       </template>
@@ -68,8 +68,10 @@ export default {
   line-height: 50px;
   font-size: 18px;
   font-weight: bold;
-  background: #303e47;
-  color: #7a7f56;
+  background: #20232a;
+  box-sizing: border-box;
+  border-bottom: #333843 1px solid;
+  color: #1d8acf;
   text-align: center;
   img, span{
     display: inline;
@@ -85,11 +87,24 @@ export default {
     line-height: 42px;
   }
   .el-menu-item{
-    height: 38px;
-    line-height: 38px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 13px;
   }
   .fas{
     margin-right: 10px;
+  }
+  /deep/ .el-menu{
+    padding: 10px;
+    box-sizing: border-box;
+    .el-menu-item{
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+    .is-active{
+      background: #151619 !important;
+      
+    }
   }
 }
 </style>
