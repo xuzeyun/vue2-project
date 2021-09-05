@@ -6,7 +6,8 @@ export default [
     menus: [
       { name: '示例页面', url: '/help/demo', icon: 'book', no: '1'},
       { name: '常用图标', url: '/help/icons', icon: 'book', no: '2'},
-      { name: '3D地球', url: '/help/chart', icon: 'book', no: '3'},
+      { name: '表格生成', url: '/help/tablecreate', icon: 'code', no: '3'},
+      { name: '3D地球', url: '/help/chart', icon: 'book', no: '4'},
     ]
   },
   {

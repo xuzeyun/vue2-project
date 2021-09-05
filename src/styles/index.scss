@@ -91,3 +91,17 @@
 .g-bottom-10{
   margin-bottom: 10px;
 }
+
+// 弹窗样式修改
+.el-dialog__header{
+  padding: 0 20px !important;
+  height: 40px;
+  line-height: 40px;
+  background: #ebf4fb !important;
+  .el-dialog__title{
+    color: #1669ab;
+  }
+  .el-dialog__headerbtn{
+    top: 12px;
+  }
+}

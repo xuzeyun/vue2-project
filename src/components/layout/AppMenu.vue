@@ -18,7 +18,7 @@
             <span>{{ item.name }}</span>
           </template>
           <template v-for="(menu, menuIndex) in item.menus">
-            <el-menu-item :index="menu.url" :key="menuIndex"><i :class="'fas fa-' + item.icon"></i>{{ menu.name }}</el-menu-item>
+            <el-menu-item :index="menu.url" :key="menuIndex"><i :class="'fas fa-' + menu.icon"></i>{{ menu.name }}</el-menu-item>
           </template>
         </el-submenu>
       </template>

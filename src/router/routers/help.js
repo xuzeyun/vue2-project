@@ -11,6 +11,11 @@ export default [
     component: () => import('../../views/help/icons')
   },
   {
+    path: '/help/tablecreate',
+    name: 'demo',
+    component: () => import('../../views/help/tablecreate')
+  },
+  {
     path: '/help/chart',
     name: 'icons',
     component: () => import('../../views/help/chart')
