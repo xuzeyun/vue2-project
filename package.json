@@ -27,6 +27,7 @@
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "pdfjs": "^2.4.4",
+    "pinyin-pro": "^3.3.1",
     "screenfull": "^5.1.0",
     "vue": "^2.6.11",
     "vue-image-crop-upload": "^3.0.3",

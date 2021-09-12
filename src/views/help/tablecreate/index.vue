@@ -16,7 +16,7 @@
           <!-- contenteditable="true" html5 元素可编辑 -->
           <el-table-column
             type="index"
-            width="30"
+            width="40"
             align="center"
           ></el-table-column>
           <el-table-column label="label" prop="label">
@@ -38,7 +38,7 @@
                 @blur="scope.row.prop = $event.target.innerText"></span>
             </template>
           </el-table-column>
-          <el-table-column label="宽度" prop="width">
+          <el-table-column label="宽度" prop="width" width="90">
             <template slot-scope="scope">
               <el-select v-model="scope.row.width" size="mini">
                 <el-option label="240" value="240"></el-option>
@@ -47,7 +47,7 @@
               </el-select>
             </template>
           </el-table-column>
-          <el-table-column label="内容对齐" prop="align">
+          <el-table-column label="内容对齐" prop="align" width="90">
             <template slot-scope="scope">
               <el-select v-model="scope.row.align" size="mini">
                 <el-option label="左" value="left"></el-option>
@@ -56,7 +56,7 @@
               </el-select>
             </template>
           </el-table-column>
-          <el-table-column label="超出隐藏" prop="tooltip">
+          <el-table-column label="tooltip" prop="tooltip" width="70">
             <template slot-scope="scope">
               <el-switch
                 v-model="scope.row.tooltip"
@@ -66,10 +66,59 @@
               </el-switch>
             </template>
           </el-table-column>
+          <el-table-column label="查询" prop="form" width="70">
+            <template slot-scope="scope">
+              <el-switch
+                v-model="scope.row.form"
+                active-text=""
+                inactive-text=""
+              >
+              </el-switch>
+            </template>
+          </el-table-column>
+          <el-table-column label="查询类型" prop="formType" width="100">
+            <template slot-scope="scope">
+              <el-select v-model="scope.row.formType" size="mini" :disabled="!scope.row.form">
+                <el-option label="input" value="input"></el-option>
+                <el-option label="select" value="select"></el-option>
+                <el-option label="date" value="date"></el-option>
+              </el-select>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
       <!-- main -->
       <div slot="main">
+        <!-- 表单 -->
+        <el-form :inline="true" ref="form" :model="form" size="small">
+          <template v-for="(item, index) in tableInfo">
+            <el-form-item v-if="item.form" :label="item.label" :key="index" :prop="item.prop">
+              <template v-if="item.formType === 'input'">
+                <el-input :v-model="item.prop" :placeholder="'请填写' + item.label"></el-input>
+              </template>
+              <template v-if="item.formType === 'select'">
+                <el-select :v-model="item.prop" :placeholder="'请选择' + item.label">
+                  <el-option label="区域一" value="shanghai"></el-option>
+                  <el-option label="区域二" value="beijing"></el-option>
+                </el-select>
+              </template>
+              <template v-if="item.formType === 'date'">
+                <el-date-picker
+                  :v-model="item.prop"
+                  type="date"
+                  placeholder="选择日期"
+                  format="yyyy/MM/dd"
+                  value-format="yyyy/MM/dd">
+                </el-date-picker>
+              </template>
+            </el-form-item>
+          </template>
+          <el-form-item>
+            <el-button type="primary" @click="formQuery">查询</el-button>
+            <el-button type="info" @click="formReset">重置</el-button>
+          </el-form-item>
+        </el-form>
+        <!-- 表格 -->
         <el-table
           :data="tableData"
           border
@@ -94,7 +143,7 @@
               header-align="left"
               :show-overflow-tooltip="item.tooltip">
               <template>
-                <span>test</span>
+                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, adipisci?</span>
               </template>
             </el-table-column>
           </template>
@@ -130,7 +179,7 @@
 
 <script>
 import Container from "../../../components/container/index.vue";
-import { makePy } from "@/utils/getPorp.js"
+import { pinyin } from 'pinyin-pro';
 export default {
   name: "tablecreate",
   components: {
@@ -140,11 +189,18 @@ export default {
     return {
       contConfig: {
         aside: true,
-        leftWidth: "500px",
+        leftWidth: "700px",
       },
       // 弹窗
       dialogVisible: false,
       
+      // 查询表单
+      form: {
+
+      },
+
+
+
       code: '',
       tableInfo: [
         {
@@ -152,7 +208,9 @@ export default {
           prop: "dwmc",
           width: "150",
           align: "left",
-          tooltip: "1",
+          tooltip: false,
+          form: false,
+          formType: '',
         },
       ],
       tableHtml: '',
@@ -207,21 +265,17 @@ export default {
       this.dialogVisible = true;
       // console.log(this.$refs.tableDom, "showTable");
       let html = '';
-      html += `<el-table :data="tableInfo" border>`;
-      html += `
-  <el-table-column fixed align="center" type="index" label="序号" width="60"></el-table-column>`
+      html += `<el-table :data="tableInfo" border>\n`;
+      html += `  <el-table-column fixed align="center" type="index" label="序号" width="60"></el-table-column>\n`
       this.tableInfo.forEach(item => {
-        html += `
-  <el-table-column label="${item.label}" prop="${item.prop}" width="${item.width}" align="${item.align}" header-align="left"${item.tooltip ? ' show-overflow-tooltip' : ''}></el-table-column>`
+        html += `  <el-table-column label="${item.label}" prop="${item.prop}" width="${item.width}" align="${item.align}" header-align="left"${item.tooltip ? ' show-overflow-tooltip' : ''}></el-table-column>\n`
       })
-      html += `
-  <el-table-column fixed="right" align="center" label="操作" width="200"></el-table-column>`
-      html += `
-<el-table>`;
+      html += `  <el-table-column fixed="right" align="center" label="操作" width="200"></el-table-column>\n`
+      html += `</el-table>`;
       this.code = html;
     },
     getProp(row) {
-      row.prop = makePy(row.label)[0].toLowerCase()
+      row.prop = pinyin(row.label, { pattern: 'first', toneType: 'none', type: 'array'}).join('');
     },
     onSubmit() {
       console.log("submit!");
@@ -235,6 +289,15 @@ export default {
     filterNode(value, data) {
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
+    },
+
+    // 查询
+    formQuery() {
+
+    },
+    // 重置
+    formReset() {
+
     },
   },
 };
