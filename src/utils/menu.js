@@ -8,6 +8,7 @@ export default [
       { name: '常用图标', url: '/help/icons', icon: 'book', no: '2'},
       { name: '表格生成', url: '/help/tablecreate', icon: 'code', no: '3'},
       { name: '3D地球', url: '/help/chart', icon: 'book', no: '4'},
+      { name: 'el表单+', url: '/help/formplus', icon: 'book', no: '5'},
     ]
   },
   {

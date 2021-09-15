@@ -309,8 +309,8 @@ export default {
         }
       })
       html += `      <el-form-item>\n`
-      html += `        <el-button type="primary" @click="handleQuery">搜索</el-button>\n`
-      html += `        <el-button type="info" @click="handleReset">重置</el-button>\n`
+      html += `        <el-button type="primary" @click="handleQuery"><i class="fas fa-search"></i>搜索</el-button>\n`
+      html += `        <el-button type="info" @click="handleReset"><i class="fas fa-undo-alt"></i>重置</el-button>\n`
       html += `      </el-form-item>\n`
       html += `      <el-form-item></el-form-item>\n`
       html += `    </el-form>\n`

@@ -3,6 +3,10 @@
     <Container :cont="contConfig">
       <!-- main -->
       <div slot="main">
+        <!-- 常用图标 -->
+        <el-row>
+          常用图标
+        </el-row>
         <!-- 列表 -->
         <el-row class="icons-wrap">
           <template v-for="item in icons">
@@ -11,6 +15,9 @@
               <span>{{ item.name }}</span>
             </el-col>
           </template>
+        </el-row>
+        <el-row>
+          所有图标
         </el-row>
         <!-- <div>
           更多：<a
@@ -90,9 +97,9 @@ export default {
 
 <style lang="scss" scoped>
 .icons-wrap{
-  padding: 20px 0;
+  padding: 10px 0;
   .el-col{
-    margin-bottom: 10px;
+    margin: 15px 0;
   }
   text-align: center;
   font-size: 12px;

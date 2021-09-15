@@ -19,5 +19,10 @@ export default [
     path: '/help/chart',
     name: 'icons',
     component: () => import('../../views/help/chart')
+  },
+  {
+    path: '/help/formplus',
+    name: 'icons',
+    component: () => import('../../views/help/formplus')
   }
 ]
