@@ -31,6 +31,21 @@
             <el-button slot="append" size="medium" @click="handleSelect1">选择</el-button>
           </el-input>
         </div>
+
+        <!-- 经纬度 -->
+        <div class="g-bottom-10">
+          <el-row class="g-bottom-10 jwd">经纬度表单 {{ jwdValue }}</el-row>
+            <el-input placeholder="度" v-model="jd[0]" style="width: 50px;">
+              <i slot="suffix">°</i>
+            </el-input>
+            <el-input placeholder="分" v-model="jd[1]" style="width: 50px;">
+              <i slot="suffix">′</i>
+            </el-input>
+            <el-input placeholder="秒" v-model="jd[2]" style="width: 50px;">
+              <i slot="suffix">″</i>
+            </el-input>         
+        </div>
+
       </div>
     </Container>
     <DialogTreeSingle
@@ -77,7 +92,19 @@ export default {
       // 多选
       input1: '',
       dialogTreeState1: false,
+
+      // 经纬度
+      jwdValue: '',
+      // 经度
+      jd: [],
+      wd: [],
     };
+  },
+  watch: {
+    jd(val){
+      console.log(val, 'jwd')
+      this.jwdValue = val.join(',')
+    }
   },
   methods: {
     // ================================================== 下拉菜单树形选择
@@ -119,7 +146,7 @@ export default {
       this.dialogTreeState = false;
     },
     dialogTreeData(data){
-      console.log(data, '弹窗单选')
+      console.log(data, '弹窗单选');
       this.input = data.label;
     },
 
@@ -141,5 +168,15 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+
+  ::v-deep .el-input--suffix{
+    .el-input__inner{
+      padding: 0 5px !important;
+    }
+    .el-input__suffix{
+      padding: 2px 2px 0 0;
+      font-size: 20px;
+    }
+  }
 </style>

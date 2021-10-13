@@ -4,22 +4,21 @@
       <!-- aside -->
       <div slot="aside">
         <!-- 内容 -->
-        <el-row class="g-bottom-10">
-          <el-button type="primary" size="mini" @click="addColumn"
-            ><i class="fas fa-plus"></i>新增列</el-button
-          >
-          <el-button type="primary" size="mini" @click="showTable"
-            ><i class="fas fa-download"></i>获取代码</el-button
-          >
-        </el-row>
-        <el-row class="g-bottom-10">
-          是否显示操作列:
-          <el-checkbox v-model="cz.isShow"></el-checkbox>
-          操作列按钮选择:
-          <el-checkbox v-model="cz.view">查看/详情</el-checkbox>
-          <el-checkbox v-model="cz.update">修改</el-checkbox>
-          <el-checkbox v-model="cz.delete">删除</el-checkbox>
-        </el-row>
+        <el-form size="small">
+          <el-form-item>
+            <el-button type="primary" @click="addColumn"><i class="fas fa-plus"></i>新增列</el-button>
+            <el-button type="success" @click="showTable"><i class="fas fa-file-download"></i>获取代码</el-button>
+          </el-form-item>
+          <el-form-item label="是否显示操作列">
+            <el-checkbox v-model="cz.isShow"></el-checkbox>
+            <template v-if="cz.isShow">
+              <el-checkbox v-model="cz.view">查看/详情</el-checkbox>
+              <el-checkbox v-model="cz.update">修改</el-checkbox>
+              <el-checkbox v-model="cz.delete">删除</el-checkbox>
+            </template>
+          </el-form-item>
+          
+        </el-form>
         
         <el-table :data="tableInfo" border key="table">
           <!-- contenteditable="true" html5 元素可编辑 -->
@@ -99,7 +98,7 @@
       <!-- main -->
       <div slot="main">
         <!-- 表单 -->
-        <el-form :inline="true" ref="form" :model="form" size="mini">
+        <el-form v-if="isHasForm()" inline ref="form" :model="form" size="small">
           <template v-for="(item, index) in tableInfo">
             <el-form-item v-if="item.form" :label="item.label" :key="index" :prop="item.prop">
               <template v-if="item.formType === 'input'">
@@ -165,13 +164,13 @@
           >
             <template slot-scope="scope">
               <el-button v-if="cz.view" title="查看" class="g-text-btn-primary" type="text" size="mini"
-                @click="viewHandle(scope.row)"><i class="fas fa-eye"></i
+                @click="handleView(scope.row)"><i class="fas fa-file-alt"></i
               ></el-button>
               <el-button v-if="cz.update" title="修改" class="g-text-btn-primary" type="text" size="mini"
-                @click="updateHandle(scope.row)"><i class="fas fa-edit"></i
+                @click="handleUpdate(scope.row)"><i class="fas fa-file-signature"></i
               ></el-button>
               <el-button v-if="cz.delete" title="删除" class="g-text-btn-danger" type="text" size="mini"
-                @click="deleteHandle(scope.row)"><i class="fas fa-trash"></i
+                @click="handleDelete(scope.row)"><i class="fas fa-trash"></i
               ></el-button>
             </template>
           </el-table-column>
@@ -182,7 +181,8 @@
       title="表格代码"
       :visible.sync="dialogVisible"
       width="70%">
-      <el-input type="textarea" v-model="code" rows="20"></el-input>
+      <!-- <el-input type="textarea" v-model="code" rows="20"></el-input> -->
+      <highlightjs language='html' :code="code" />
     </el-dialog>
   </div>
 </template>
@@ -214,8 +214,8 @@ export default {
       code: '',
       tableInfo: [
         {
-          label: "单位名称",
-          prop: "dwmc",
+          label: "示例",
+          prop: "sl",
           width: "150",
           align: "left",
           tooltip: false,
@@ -260,10 +260,10 @@ export default {
       ],
       // 表格操作列
       cz: {
-        isShow: false,
+        isShow: true,
         view: false,
-        update: false,
-        delete: false,
+        update: true,
+        delete: true,
       }
       
     };
@@ -290,55 +290,59 @@ export default {
       let html = '';
       html += `<template>\n  <div>\n`;
       // form
-      html += `    // 查询条件\n`;
-      html += `    <el-form inline ref="form" :model="form" size="small">\n`;
-      this.tableInfo.forEach(item => {
-        if(item.form){
-          html += `      <el-form-item label="${item.label}" prop="${item.prop}">\n`
-          if(item.formType === 'input'){
-            html += `        <el-input v-model="form.${item.prop}" placeholder="请填写${item.label}" clearable @keyup.enter.native="handleQuery"></el-input>\n`
-          } else if(item.formType === 'select'){
-            html += `        <el-select v-model="form.${item.prop}" placeholder="请选择${item.label}" clearable> @change="handleQuery"\n`
-            html += `          <el-option label="区域一" value="shanghai"></el-option>\n`
-            html += `          <el-option label="区域二" value="beijing"></el-option>\n`
-            html += `        </el-select>\n`
-          } else if(item.formType === 'date'){
-            html += `        <el-date-picker v-model="form.${item.prop}" type="date" placeholder="选择日期" format="yyyy/MM/dd" value-format="yyyy/MM/dd" clearable @change="handleQuery"></el-date-picker>\n`
+      if(this.isHasForm()){
+        html += `    <!-- 查询条件 -->\n`;
+        html += `    <el-form inline ref="form" :model="form" size="small">\n`;
+        this.tableInfo.forEach(item => {
+          if(item.form){
+            html += `      <el-form-item label="${item.label}" prop="${item.prop}">\n`
+            if(item.formType === 'input'){
+              html += `        <el-input v-model="form.${item.prop}" placeholder="请填写${item.label}" clearable @keyup.enter.native="handleQuery"></el-input>\n`
+            } else if(item.formType === 'select'){
+              html += `        <el-select v-model="form.${item.prop}" placeholder="请选择${item.label}" clearable> @change="handleQuery"\n`
+              html += `          <el-option label="区域一" value="shanghai"></el-option>\n`
+              html += `          <el-option label="区域二" value="beijing"></el-option>\n`
+              html += `        </el-select>\n`
+            } else if(item.formType === 'date'){
+              html += `        <el-date-picker v-model="form.${item.prop}" type="date" placeholder="选择日期" format="yyyy/MM/dd" value-format="yyyy/MM/dd" clearable @change="handleQuery"></el-date-picker>\n`
+            }
+            html += `      </el-form-item>\n`
           }
-          html += `      </el-form-item>\n`
-        }
-      })
-      html += `      <el-form-item>\n`
-      html += `        <el-button type="primary" @click="handleQuery"><i class="fas fa-search"></i>搜索</el-button>\n`
-      html += `        <el-button type="info" @click="handleReset"><i class="fas fa-undo-alt"></i>重置</el-button>\n`
-      html += `      </el-form-item>\n`
-      html += `      <el-form-item></el-form-item>\n`
-      html += `    </el-form>\n`
+        })
+        html += `      <el-form-item>\n`
+        html += `        <el-button type="primary" @click="handleQuery"><i class="fas fa-search"></i>搜索</el-button>\n`
+        html += `        <el-button type="info" @click="handleReset"><i class="fas fa-undo-alt"></i>重置</el-button>\n`
+        html += `      </el-form-item>\n`
+        html += `      <el-form-item></el-form-item>\n`
+        html += `    </el-form>\n`
+      }
 
 
       // table
-      html += `    // 表格\n`;
+      html += `    <!-- 表格 -->\n`;
       html += `    <el-table :data="tableData" border>\n`
-      html += `      <el-table-column fixed align="center" type="index" label="序号" width="60"></el-table-column>\n`
+      html += `      <el-table-column label="序号" type="index" width="60" fixed align="center"></el-table-column>\n`
       this.tableInfo.forEach(item => {
         html += `      <el-table-column label="${item.label}" prop="${item.prop}" width="${item.width}" align="${item.align}" header-align="left"${item.tooltip ? ' show-overflow-tooltip' : ''}></el-table-column>\n`
       })
 
       if(this.cz.isShow){
-        html += `      <el-table-column fixed="right" align="center" label="操作" width="200">\n`
+        html += `      <el-table-column label="操作" width="200" fixed="right" align="center">\n`
+        html += `        <template slot-scope="scope">\n`
         if(this.cz.view){
-          html += `        <el-button title="查看" type="text" size="mini" @click="viewHandle(scope.row)"><i class="fas fa-eye"></i></el-button>\n`
+          html += `          <el-button title="查看" type="text" size="mini" @click="handleView(scope.row)"><i class="fas fa-eye"></i></el-button>\n`
         }
         if(this.cz.update){
-          html += `        <el-button title="修改" type="text" size="mini" @click="updateHandle(scope.row)"><i class="fas fa-edit"></i></el-button>\n`
+          html += `          <el-button title="修改" type="text" size="mini" @click="handleUpdate(scope.row)"><i class="fas fa-edit"></i></el-button>\n`
         }
         if(this.cz.delete){
-          html += `        <el-button title="删除" type="text" size="mini" @click="deleteHandle(scope.row)"><i class="fas fa-trash"></i></el-button>\n`
+          html += `          <el-button title="删除" type="text" size="mini" @click="handleDelete(scope.row)"><i class="fas fa-trash"></i></el-button>\n`
         }
+        html += `        </template>\n`
         html += `      </el-table-column>\n`
       }
       html += `    </el-table>\n`;
-      html += `  <div>\n<template>\n\n`;
+      html += `  </div>\n<template>\n\n`;
 
       // script
       html += `<script>\n`;
@@ -360,9 +364,21 @@ export default {
       html += `    }\n`;
       html += `  }\n`;
       html += `}\n`;
-      html += `<script>\n`;
+      // eslint-disable-next-line no-useless-escape
+      html += `<\/script>\n`;
 
       this.code = html;
+    },
+    isHasForm(){
+      // eslint-disable-next-line no-unused-vars
+      let flag = false;
+      for (let item of this.tableInfo) {
+        if(item.form){
+          flag = true;
+          break
+        }
+      }
+      return flag;
     },
     getProp(row) {
       row.prop = pinyin(row.label, { pattern: 'first', toneType: 'none', type: 'array'}).join('');
@@ -385,9 +401,9 @@ export default {
     handleQuery() {},
     handleReset() {},
     // 操作按钮方法
-    viewHandle() {},
-    updateHandle() {},
-    deleteHandle() {},
+    handleView() {},
+    handleUpdate() {},
+    handleDelete() {},
   },
 };
 </script>

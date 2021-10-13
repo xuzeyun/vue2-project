@@ -99,7 +99,7 @@ export default {
 .icons-wrap{
   padding: 10px 0;
   .el-col{
-    margin: 15px 0;
+    margin: 15px 0px;
   }
   text-align: center;
   font-size: 12px;

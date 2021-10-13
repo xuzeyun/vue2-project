@@ -3,10 +3,28 @@
 @import '../assets/icon/fontawesome-free-5.11.2-web/css/solid.min.css';
 @import './color.scss';
 
+/* for custom scrollbar for webkit browser*/
+
+::-webkit-scrollbar {
+  width: 8px;
+} 
+::-webkit-scrollbar-track {
+  // background-color: #ddd;
+  // -webkit-box-shadow: 0 0 6px rgba(0,0,0,0.6); 
+} 
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.1);
+  border-radius: 4px;
+  // -webkit-box-shadow: 0 0 6px rgba(0,0,0,0.6); 
+}
+
+
+
 // 按钮中 icon 添加右边距
 .el-button{
   .fas{
     margin-right: 3px;
+    width: 15px;
   }
 }
 .el-button+.el-button {
@@ -17,35 +35,26 @@
   padding-left: 6px !important;
   padding-right: 6px !important;
 }
-// primary 按钮样式
-.el-button--primary {
-  color: #FFF;
-  background-color: $btnPrimary !important;
-  border-color: $btnPrimary !important;
-}
-// info 按钮样式
-// .el-button--info {
-//   color: #FFF;
-//   background-color: #999481 !important;
-//   border-color: #999481 !important;
-// }
 
-// danger 按钮样式
-.el-button--danger {
-  color: #FFF;
-  background-color: $btnDanger !important;
-  border-color: $btnDanger !important;
-}
-
+// text 按钮样式
 .el-button--text{
   padding-left: 2px !important;
   padding-right: 2px !important;
 }
 .g-text-btn-primary{
-  color: $btnPrimary !important;
+  color: #006CE5 !important;
+}
+.g-text-btn-success{
+  color: #40C063 !important;
 }
 .g-text-btn-danger{
-  color: $btnDanger !important;
+  color: #EB4F2D !important;
+}
+.g-text-btn-warning{
+  color: #ED9502 !important;
+}
+.g-text-btn-info{
+  color: #C0C4CC !important;
 }
 
 
@@ -103,5 +112,21 @@
   }
   .el-dialog__headerbtn{
     top: 12px;
+  }
+}
+.el-dialog__body{
+  padding: 20px !important;
+}
+
+// highLight.js 高亮组件自定义样式
+@font-face {
+  font-family: 'Source Code Pro';
+  src: url(../assets/fonts/Source_Code_Pro/SourceCodePro-Medium.ttf);
+}
+pre{
+  margin: 0 !important;
+  code{
+    font-family: 'Source Code Pro' !important;
+    line-height: 20px;
   }
 }

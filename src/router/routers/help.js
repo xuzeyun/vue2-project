@@ -11,9 +11,9 @@ export default [
     component: () => import('../../views/help/icons')
   },
   {
-    path: '/help/tablecreate',
-    name: 'demo',
-    component: () => import('../../views/help/tablecreate')
+    path: '/help/zqChart',
+    name: 'icons',
+    component: () => import('../../views/help/zqChart')
   },
   {
     path: '/help/chart',

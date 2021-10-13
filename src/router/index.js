@@ -1,12 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import layout from '../components/layout'
+
 Vue.use(VueRouter)
 
 // 导入子路由
 import help from './routers/help'
+import fast from './routers/fast'
 const combine = [
-  ...help
+  ...help,
+  ...fast
 ]
 
 const routes = [
