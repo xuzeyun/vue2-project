@@ -5,6 +5,12 @@ import store from './store'
 import hljs from 'highlight.js';
 import 'normalize.css/normalize.css'
 import './styles/index.scss'
+import '@/styles/formGenerator/index.scss'
+import '@/icons'
+import Tinymce from '@/components/FormGenerator/tinymce/index.vue'
+Vue.component('tinymce', Tinymce)
+import axios from 'axios'
+// Option 1: Import the entire three.js core library.
 
 // import 'highlight.js/styles/atom-one-dark.css'
 import 'highlight.js/styles/solarized-dark.css';
@@ -24,6 +30,7 @@ Vue.use(hljs.vuePlugin);
 Vue.component('Container', Container);
 
 Vue.config.productionTip = false;
+Vue.prototype.$axios = axios
 
 new Vue({
   router,

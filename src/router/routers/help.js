@@ -24,5 +24,15 @@ export default [
     path: '/help/formplus',
     name: 'icons',
     component: () => import('../../views/help/formplus')
+  },
+  {
+    path: '/help/three',
+    name: 'icons',
+    component: () => import('../../views/help/three')
+  },
+  {
+    path: '/help/objtree',
+    name: 'icons',
+    component: () => import('../../views/help/objtree')
   }
 ]

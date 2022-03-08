@@ -9,6 +9,7 @@
 
 <script>
 // 导航
+// import AppMenu from './AppMenu2.vue'
 import AppMenu from './AppMenu.vue'
 // 主体内容
 import AppMain from './AppMain.vue'
